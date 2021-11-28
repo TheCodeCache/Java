@@ -7,6 +7,7 @@ public enum Singleton {
 
 	private int count;
 
+	// we should guard this function, when exposed to multiple threads to avoid race condition.  
 	public void setCount(int count) {
 		this.count = count;
 	}
