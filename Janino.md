@@ -1,5 +1,16 @@
 # org.codehause.janino
 
+Janino is a super-small, super-fast Java compiler.  
+
+Janino can not only `compile` a set of `source files` to a set of `class files` like `JAVAC`,  
+but also 
+- compile a `Java expression`
+- a `block`
+- a `class body`
+- one `.java file`
+- a `set of .java files` in memory,  
+load the bytecode and execute it directly in the same JVM.  
+
 Let's say we build an e-commerce system, which computes the shipping cost for the items that the user put into his/her shopping cart.  
 Because we don't know the merchant's shipping cost model at implementation time,  
 we could implement a set of shipping cost models that come to mind (flat charge, by weight, by number of items, ...) and select one of those at run-time.  
