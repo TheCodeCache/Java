@@ -16,5 +16,5 @@ https://examples.javacodegeeks.com/core-java/security/control-access-to-an-objec
 1. https://docs.oracle.com/javase/tutorial/essential/environment/security.html
 2. https://docs.oracle.com/javase/8/docs/technotes/guides/security/index.html
 3. https://www.baeldung.com/java-security-manager
-4. 
+4. https://blog.frankel.ch/java-security-manager/
 
