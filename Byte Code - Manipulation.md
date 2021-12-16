@@ -33,6 +33,6 @@ class A {
 ```
 
 **Reference:**  
-1. http://janino-compiler.github.io/janino/#basic-examples
+1. http://janino-compiler.github.io/janino/#janino-as-a-code-manipulator
 2. https://github.com/janino-compiler/janino/blob/master/janino/src/test/java/org/codehaus/janino/tests/AstTest.java#LC359
 
