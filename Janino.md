@@ -1,6 +1,6 @@
 # org.codehause.janino
 
-Janino is a super-small, super-fast Java compiler.  
+`Janino` is a super-small, super-fast `Java compiler`.  
 
 Janino can not only `compile` a set of `source files` to a set of `class files` like `JAVAC`,  
 but also 
