@@ -28,8 +28,8 @@ Actions that are guarded by permissions (in Oracle JDK's security policy) includ
 
 The above are the "really evil things" that an attacker might do,  
 However actions that are not guarded are:  
-- Allocate memory (this can not be guarded but can be mitigated)
-- Create new threads
+- Allocate memory (this can not be guarded but can be mitigated)  
+- Create new threads  
 so in this two case, we might have to secure it manually,  
 
 # How to control access to a Java Object:
