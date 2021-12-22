@@ -14,6 +14,33 @@ Doing the equivalent entrySet().iterator() may have been reasonable, but it's no
 
 The library designers decided not to make this choice, letting programmers pick what to iterate explicitly.  
 
+# `Map` In `Scala` collections:
+
+However, in Scala collections hierarchy,  
+`Map` extends `Iterable` and it does provide the default iteration based on the key-value entries/pairs.  
+For ex:  
+
+```scala
+val names = Map("fname" -> "Manoranjan", "lname" -> "Kumar")
+
+for (pair <- names){
+  println(s"key: $pair._1")
+  println(s"value: $pair._2")
+}
+
+for (key <- names.keys){
+  println(s"key: $key")
+}
+
+for (value <- names.values){
+  println(s"value: value")
+}
+
+for (entry <- names.entry){ // names.entry does not exist, it's a compile time error
+  // inspect entry object (if found)
+}
+```
+
 **References**:  
 1. https://stackoverflow.com/a/11507849/6842300
 2. https://stackoverflow.com/a/19422495/6842300
