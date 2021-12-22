@@ -41,6 +41,9 @@ for (entry <- names.entry){ // names.entry does not exist, it's a compile time e
 }
 ```
 
+so, the point here is:  
+many a times, it depends on the library designer whether to expose a functionality in a certain way or not!  
+
 **References**:  
 1. https://stackoverflow.com/a/11507849/6842300
 2. https://stackoverflow.com/a/19422495/6842300
