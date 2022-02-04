@@ -28,15 +28,144 @@ Since it's just a snapshot, hence it does not contain information such as when a
 4. `JVisualVM` - it's a monitoring, troubleshooting tool that is packaged within the JDK, 
   when we launch this tool, it'll displays all the running java processes on local machine, and can connect to them 
 5. Using JMX clients such as JConsole, Java Mission Control (using MBeanServer) etc.
-6. and through programmatic approach
+6. and, through programmatic approach like below code snippets - 
+```java
+package com.tests.examples;
 
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+
+import javax.management.MBeanServer;
+
+import com.sun.management.HotSpotDiagnosticMXBean;
+
+/**
+ * @author manoranjan.kumar
+ */
+public class HeapDump {
+	private static final String HOTSPOT_BEAN_NAME = "com.sun.management:type=HotSpotDiagnostic";
+
+	// available in java 11
+	private static volatile HotSpotDiagnosticMXBean hotSpotDiagnosticMXBean;
+
+	public static void main(String[] args) throws IOException {
+		HeapDump heapDump = new HeapDump();
+		heapDump.takeHeapDump("log_heap_dump.hprof", true);
+	}
+
+	public void takeHeapDump(String fileName, boolean live) throws IOException {
+		initHotSpotMBean();
+		hotSpotDiagnosticMXBean.dumpHeap(fileName, live);
+	}
+
+	private static void initHotSpotMBean() throws IOException {
+		if (hotSpotDiagnosticMXBean == null) {
+			synchronized (HeapDump.class) {
+				hotSpotDiagnosticMXBean = getHotSpotDiagnosticMXBean();
+			}
+		}
+	}
+
+	private static HotSpotDiagnosticMXBean getHotSpotDiagnosticMXBean() throws IOException {
+		MBeanServer server = ManagementFactory.getPlatformMBeanServer();
+		return ManagementFactory.newPlatformMXBeanProxy(server, HOTSPOT_BEAN_NAME, HotSpotDiagnosticMXBean.class);
+	}
+}
+```
 
 # Heap Dump Analysis – 
 
 There are several open-sourced analysis tools in the market, the most common tools are listed as follows:  
-1. Eclipse MAT: it comes in tow versions - standalone and plug-in, better use standalone version
+1. Eclipse MAT: it comes in two versions - `Standalone` and `Eclipse plug-in`, better use `standalone` version
 2. HeapHero:
 3. JVisualVM: 
 
+**Eclipse MAT (memory analyzer tool) -**  
+download link: [this](https://www.eclipse.org/downloads/download.php?file=/mat/1.12.0/rcp/MemoryAnalyzer-1.12.0.20210602-win32.win32.x86_64.zip)  
 
+code to be analyzed for memory hogging:  
+```java
+package com.tests.examples;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Replicating OOM Error Scenario
+ * 
+ * @author manoranjan.kumar
+ */
+public class OutOfMemoryError {
+
+	private Map<Object, Object> myMap = new HashMap<>();
+
+	public static void main(String[] args) {
+		OutOfMemoryError oom = new OutOfMemoryError();
+		oom.grow();
+	}
+
+	public void grow() {
+		try {
+			long counter = 0;
+			while (true) {
+				myMap.put("key" + counter,
+						"Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String "
+								+ "Large String Large String Large String Large String Large String " + counter);
+				++counter;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+}
+```
+  
+Compile and Run the above code with these JVM flags:  
+`java OutOfMemoryError -Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=java_heap_space_oom_heap_dump.bin`  
+
+it'll throw below error in standard console-  
+```java
+java.lang.OutOfMemoryError: Java heap space
+Dumping heap to java_heap_space_oom_heap_dump.bin ...
+Heap dump file created [851946015 bytes in 2.321 secs]
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.util.Arrays.copyOfRange(Arrays.java:3664)
+	at java.lang.String.<init>(String.java:207)
+	at java.lang.StringBuilder.toString(StringBuilder.java:407)
+	at com.tests.examples.OutOfMemoryError.grow(OutOfMemoryError.java:25)
+	at com.tests.examples.OutOfMemoryError.main(OutOfMemoryError.java:17)
+```
+
+Open up this file (java_heap_space_oom_heap_dump.bin) in Eclipse MAT tool, like below  
+
+![image](https://user-images.githubusercontent.com/26399543/152468289-d115b684-81f9-4389-8bba-ddbedfd85b0d.png)  
+
+click on `Dominator Tree` hyper link -  
+and then expand the first line item having the maximum `Retained Heap`  
+![image](https://user-images.githubusercontent.com/26399543/152468545-4501b4ac-5762-48ca-946b-095bbfd36334.png)  
+
+We can clearly notice the higlighted user-defined class name with complete package details which is having highest `Retained Heap`  
+
+Do, right click on it, like below   
+![image](https://user-images.githubusercontent.com/26399543/152468693-e58395dd-3be6-4fbd-b8b4-3233d0ddd2c7.png)  
+
+Expand it, and we can pinpoint the exact varible `myMap` which is causing memory hog as follows-  
+![image](https://user-images.githubusercontent.com/26399543/152468758-7997ce33-51e9-45ce-9fd2-ee393dc7b703.png)  
   
