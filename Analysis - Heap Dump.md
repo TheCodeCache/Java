@@ -28,6 +28,7 @@ Since it's just a snapshot, hence it does not contain information such as when a
 4. `JVisualVM` - it's a monitoring, troubleshooting tool that is packaged within the JDK, 
   when we launch this tool, it'll displays all the running java processes on local machine, and can connect to them 
 5. Using JMX clients such as JConsole, Java Mission Control (using MBeanServer) etc.
+6. Using `jhat` cmd tool
 6. and, through programmatic approach like below code snippets - 
 ```java
 package com.tests.examples;
@@ -177,6 +178,18 @@ It is the amount of memory that can be collected by GC when a particular object 
 The below diagram explains Shallow & Retained Heap concepts clearly:  
 ![image](https://user-images.githubusercontent.com/26399543/152469709-977e48f8-bd27-454c-8410-96270353afa4.png)  
 
+
+# Heap Dump Analysis using `jhat` -  
+For a quick summary, we can using `jhat` to analyze heap dumps, but this is mostly in textual format,  
+hence, it may not be that readable, better use UI based tools  
+such as, JVisualVM or Eclipse MAT for easier understanding with more features  
+
+![image](https://user-images.githubusercontent.com/26399543/152470491-45d4979c-ad05-4bb0-bd8e-b7d626b9b62d.png)  
+
+open up the browser and hit `localhost:7000`  
+![image](https://user-images.githubusercontent.com/26399543/152470595-2253a4b5-0d05-4c9c-8c1d-18665891439e.png)  
+
+	
 
 **Reference:**  
 1. https://www.youtube.com/watch?v=gfOdYLVVTFs
