@@ -1,4 +1,4 @@
-# Heap Dump Introduction – 
+# Heap Dump Basics – 
 
 **What is Heap Dump** –  
 A heap dump is a snapshot of the memory of a java application at a certain point in time.  
@@ -168,4 +168,17 @@ Do, right click on it, like below
 
 Expand it, and we can pinpoint the exact varible `myMap` which is causing memory hog as follows-  
 ![image](https://user-images.githubusercontent.com/26399543/152468758-7997ce33-51e9-45ce-9fd2-ee393dc7b703.png)  
-  
+
+**Shallow Heap:**  
+It is the amount of memory occupied by that particular object on Heap.  
+**Retained Heap:**  
+It is the amount of memory that can be collected by GC when a particular object is removed from Heap  
+
+The below diagram explains Shallow & Retained Heap concepts clearly:  
+![image](https://user-images.githubusercontent.com/26399543/152469709-977e48f8-bd27-454c-8410-96270353afa4.png)  
+
+
+**Reference:**  
+1. https://www.youtube.com/watch?v=gfOdYLVVTFs
+2. https://www.youtube.com/watch?v=SuguH8YBl5g
+
