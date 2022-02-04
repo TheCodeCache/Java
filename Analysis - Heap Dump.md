@@ -1,4 +1,4 @@
-# Heap Dump Analysis – 
+# Heap Dump Introduction – 
 
 **What is Heap Dump** –  
 A heap dump is a snapshot of the memory of a java application at a certain point in time.  
@@ -31,3 +31,12 @@ Since it's just a snapshot, hence it does not contain information such as when a
 6. and through programmatic approach
 
 
+# Heap Dump Analysis – 
+
+There are several open-sourced analysis tools in the market, the most common tools are listed as follows:  
+1. Eclipse MAT: it comes in tow versions - standalone and plug-in, better use standalone version
+2. HeapHero:
+3. JVisualVM: 
+
+
+  
