@@ -54,4 +54,136 @@ public class ThreadDump {
 
 There are several open-sourced analysis tools in the market, the most common tools are listed as follows:  
 1. `fast`Thread (https://fastthread.io/)  
-2. 
+2. https://jstack.review/
+3. https://spotify.github.io/threaddump-analyzer/
+4. JProfiler - it's an standalone tool
+
+**`jstack.review`** :  
+
+<img src="https://user-images.githubusercontent.com/26399543/152868956-244d2cae-2ecc-4854-aa31-ae643f2d26ca.png" width="50%" height="50%">  
+
+**`spotify`** :  
+
+<img src="https://user-images.githubusercontent.com/26399543/152869029-ff6c80e2-2ca6-4935-b59e-1434f472a92b.png" width="50%" height="50%">  
+
+```java
+package com.tests.examples;
+
+import java.util.concurrent.Semaphore;
+
+class OddTask implements Runnable {
+
+    private Semaphore oddLock;
+    private Semaphore evenLock;
+
+    public OddTask(Semaphore oddLock, Semaphore evenLock) {
+        this.oddLock = oddLock;
+        this.evenLock = evenLock;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 1; i < 100; i += 2) {
+            try {
+                oddLock.acquire();
+            } catch (Exception e) {
+            }
+            System.out.println(i + " by odd thread");
+            try {
+                System.out.println("odd thread sleeping for 5 sec");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            evenLock.release();
+        }
+    }
+}
+
+class EvenTask implements Runnable {
+
+    private Semaphore oddLock;
+    private Semaphore evenLock;
+
+    public EvenTask(Semaphore oddLock, Semaphore evenLock) {
+        this.oddLock = oddLock;
+        this.evenLock = evenLock;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i += 2) {
+            try {
+                evenLock.acquire();
+            } catch (InterruptedException e) {
+                System.out.println("Intruppted during lock acquisition");
+                e.printStackTrace();
+            }
+            System.out.println(i + " by even thread");
+            try {
+                System.out.println("even thread sleeping for 5 sec");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            oddLock.release();
+        }
+    }
+}
+
+/**
+ * Print even and odd numbers using two threads in sequential order manner,
+ * while one thread prints only even number and the other thread prints odd number.
+ * 
+ * @author manoranjan.kumar
+ */
+public class EvenOdd {
+
+    public static void main(String[] args) {
+        System.out.println("begin!");
+        Semaphore oddLock = new Semaphore(0);
+        Semaphore evenLock = new Semaphore(1);
+
+        Thread odd = new Thread(new OddTask(oddLock, evenLock), "Odd THread");
+        Thread even = new Thread(new EvenTask(oddLock, evenLock), "Even THread");
+
+        odd.start();
+        even.start();
+
+        try {
+            odd.join();
+            even.join();
+        } catch (InterruptedException e) {
+            System.out.println("Intruppted while joining threads");
+            e.printStackTrace();
+        }
+        System.out.println("main exits now!");
+    }
+}
+```
+
+PFB for 3 thread-dump files taken at the interval of 10 seconds each upon execution of above code –  
+
+- [thread-dump1.log](https://github.com/TheCodeCache/Java/files/8018809/thread-dump1.log)  
+- [thread-dump2.log](https://github.com/TheCodeCache/Java/files/8018810/thread-dump2.log)  
+- [thread-dump3.log](https://github.com/TheCodeCache/Java/files/8018812/thread-dump3.log)  
+
+Let us analyze these using `fastThread` tool  
+
+just open up https://fastthread.io/  
+
+![image](https://user-images.githubusercontent.com/26399543/152874111-4fb67b15-33df-443d-ac8f-bb902ae402ad.png)  
+![image](https://user-images.githubusercontent.com/26399543/152874054-2507b18e-8f34-437b-ac8f-dab1ff5c3731.png)  
+
+Attach the thread-dump file (thread-dump1.log)  
+
+and PFB the results –  
+
+https://fastthread.io/my-thread-report.jsp?p=c2hhcmVkLzIwMjIvMDIvNy8tLXRocmVhZC1kdW1wMS5sb2ctLTIxLTE5LTEw&
+
+OR, in PDF format –  
+
+[Report-thread-dump1.pdf](https://github.com/TheCodeCache/Java/files/8018865/ft-report-thread-dump1.pdf)
+
