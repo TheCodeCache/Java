@@ -86,49 +86,49 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Replicating OOM Error Scenario
+ * Replicating OOM Error
  * 
  * @author manoranjan.kumar
  */
 public class OutOfMemoryError {
 
-	private Map<Object, Object> myMap = new HashMap<>();
+    private Map<Object, Object> myMap = new HashMap<>();
 
-	public static void main(String[] args) {
-		OutOfMemoryError oom = new OutOfMemoryError();
-		oom.grow();
-	}
+    public static void main(String[] args) {
+        OutOfMemoryError oom = new OutOfMemoryError();
+        oom.grow();
+    }
 
-	public void grow() {
-		try {
-			long counter = 0;
-			while (true) {
-				myMap.put("key" + counter,
-						"Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String "
-								+ "Large String Large String Large String Large String Large String " + counter);
-				++counter;
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
+    public void grow() {
+        try {
+            long counter = 0;
+            while (true) {
+                myMap.put("key" + counter,
+                        "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String "
+                                + "Large String Large String Large String Large String Large String " + counter);
+                ++counter;
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 }
 ```
   
