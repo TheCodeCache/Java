@@ -9,12 +9,6 @@ Since it's just a snapshot, hence it does not contain information such as when a
 2. To analyze the `memory footprint of an application`
 3. To know the root cause behind `too many garbage objects` being created
 
-**Types of HeapDump** –  
-1. `.hprof` binary heap dumps -  
-  it contains informations about `all loaded classes` and `all objects`, a list of `gc roots` and `callstacks of all threads`  
-2. IBM system dumps 
-3. IBM portable heap dumps
-
 **How to take HeapDump** –  
 1. Using cmd line options - 
   `jmap -dump:live,format=b,file=<file-path> <pid>`  
