@@ -1,7 +1,5 @@
 # How to manipulate java byte-code:  
 
-# ToDo:
-
 We can manipulate a given java source code files and translate/manipulate them into different versions.  
 For ex:  
 if we need to improve the code quality of the given source code programatically,  
