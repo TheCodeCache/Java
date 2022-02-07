@@ -16,7 +16,7 @@ Since it's just a snapshot, hence it does not contain information such as when a
 3. IBM portable heap dumps
 
 **How to take HeapDump** –  
-1. Usig cmd line options - 
+1. Using cmd line options - 
   `jmap -dump:live,format=b,file=<file-path> <pid>`  
   where <pid> is the java process id for which heap dump should be captured  
   `live` option will only capture live objects on heap, this reduces the size of heap dump & make analysis easier  
