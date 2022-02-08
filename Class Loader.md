@@ -23,6 +23,12 @@ When we try to use a class, the `ClassLoader` loads it into the memory.
 Every `Class Loader` in JVM is similar to `namespace`, and loads the classes into its own namespace.  
 Classes loaded into separate namespace can not interact with each other  
 
+There are three types of built-in ClassLoader in Java –  
+
+1. Bootstrap
+2. Extension
+3. System
+
 
 
 
