@@ -9,7 +9,7 @@ WE could get rid of the not reachable code.
 However, before removing un-reachable code we must ensure that the test cases are exhaustive,  
 and have not missed any single corner of the feature/functionality
 
-We need to set up any simple maven project in Eclipse or IDE of your choice and use the below code:  
+We need to set up any simple maven project in Eclipse or IDE of our choice and use the below code:  
 
 **`App.java`** –  
 
