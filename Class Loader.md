@@ -85,9 +85,109 @@ So, classes loaded by System Classloader have visibility into classes loaded by 
 # Custom ClassLoader – 
 
 ```java
+package com.tests.examples;
 
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * Custom ClassLoafer
+ * 
+ * It loads classes from database stored as blob (binary data)
+ * 
+ * query:
+ * 
+ * SELECT id, class, class_name FROM Classes
+ * 
+ * data:
+ * 
+ * 1     0xCAFEBABE000000003400160A00040011.....     com.test.examples.Hello
+ * 
+ * @author manoranjan.kumar
+ */
+public class SqlServerClassLoader extends ClassLoader {
+    private ClassLoader parent;
+    private String connectionString;
+
+    public SqlServerClassLoader(String connectionString) {
+        this(ClassLoader.getSystemClassLoader(), connectionString);
+    }
+
+    public SqlServerClassLoader(ClassLoader parent, String connectionString) {
+        super(parent);
+        this.parent = parent;
+        this.connectionString = connectionString;
+    }
+
+    public static void main(String[] args) {
+        SqlServerClassLoader cl = new SqlServerClassLoader(
+                "jdbc:sqlserver://localhost\\SQLexpress;databaseName=classes");
+        try {
+            Class<?> clazz = cl.findClass("com.test.examples.Hello");
+            Hello hello = (Hello) clazz.newInstance();
+            System.out.println(hello.sayHello());
+        } catch (ClassNotFoundException cnfe) {
+            cnfe.printStackTrace();
+        } catch (InstantiationException ie) {
+            ie.printStackTrace();
+        } catch (IllegalAccessException iae) {
+            iae.printStackTrace();
+        }
+
+    }
+
+    @Override
+    protected Class<?> findClass(String name) throws ClassNotFoundException {
+        Class<?> cls = null;
+        try {
+            cls = parent.loadClass(name);
+        } catch (ClassNotFoundException ex) {
+            byte[] bytes = new byte[0];
+            try {
+                bytes = loadClassFromDatabase(name);
+            } catch (SQLException sqle) {
+                throw new ClassNotFoundException("Unable to load class ", sqle);
+            }
+            return defineClass(name, bytes, 0, bytes.length);
+        }
+        return cls;
+    }
+
+    private byte[] loadClassFromDatabase(String name) throws SQLException {
+        PreparedStatement pstmt = null;
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(connectionString);
+
+            String sql = "select class from CLASSES where className= ?";
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Blob blob = rs.getBlob(1);
+                byte[] data = blob.getBytes(1, (int) blob.length());
+                return data;
+            }
+        } catch (SQLException sqlEx) {
+            System.out.println("Unexpected SQLException: " + sqlEx.toString());
+        } catch (Exception ex) {
+            System.out.println("Unexpected Exception: " + ex.toString());
+        } finally {
+            if (pstmt != null)
+                pstmt.close();
+            if (connection != null)
+                connection.close();
+        }
+        return null;
+    }
+}
 ```
 
 **Reference:**  
 1. https://www.journaldev.com/349/java-classloader
+2. https://www.youtube.com/watch?v=eyvbMx2x0MY
 
