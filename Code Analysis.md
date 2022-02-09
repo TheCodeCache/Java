@@ -1,16 +1,6 @@
-# Introducing Janino – 
-
-`Janino` is a very small, extremely fast open source Java compiler (Janino is a super-small, super-fast Java™ compiler).  
-`Janino` can not only 
-- compile Java source code files into bytecode files like `javac`,  
-
-but also  
-- compile Java expressions, blocks, classes and source code files in memory 
-- load bytecodes and execute them directly in the JVM.  
-`Janino` can also be used for **`static code analysis`** and **`code manipulation`**  
-
-
 # Code Analysis – 
+
+**Note: Source Code Analysis could also be done by [`SonarQube`](https://www.sonarqube.org/)**
 
 We can do static code analysis for any java class.  
 `Static Code Analysis` is nothing but to know all about a java program (like java specific details, or code structural details)  
@@ -41,6 +31,17 @@ Local variables:        4
 C:\Users\manoranjan.kumar>
 ```
 This is the basis for all these neat code metrics and style checking  
+
+# Janino – 
+
+`Janino` is a very small, extremely fast open source Java compiler (Janino is a super-small, super-fast Java™ compiler).  
+`Janino` can not only 
+- compile Java source code files into bytecode files like `javac`,  
+
+but also  
+- compile Java expressions, blocks, classes and source code files in memory 
+- load bytecodes and execute them directly in the JVM.  
+`Janino` can also be used for **`static code analysis`** and **`code manipulation`**  
 
 **Reference:**  
 1. http://janino-compiler.github.io/janino/#janino-as-a-code-analyser
