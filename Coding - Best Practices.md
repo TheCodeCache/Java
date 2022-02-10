@@ -37,5 +37,5 @@
 - Code to interfaces rather than implementations.
 - Make all model classes ( request scoped / application scoped ) immutable ( all attributes private final and set through constructor).
   - Collections.unmodifiable*() for collections.
-- Indentation - 2 spaces instead of 4 spaces or tabs  
+- Indentation - 2 spaces instead of 4 spaces or tabs 
 
