@@ -1,2 +1,0 @@
-# Java Coding Best Practices - 
-
