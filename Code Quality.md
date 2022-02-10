@@ -383,7 +383,7 @@ java.io.IOException: Access is denied
 
 Validate the quality reports  
 
-PFB the samepl screen shot  
+PFB the sample screen shot  
 
 **home page:**  
 <img src="https://user-images.githubusercontent.com/26399543/153511284-eb6031eb-a2ae-4db5-8542-f2741452596f.png" width="80%" height="80%">  
