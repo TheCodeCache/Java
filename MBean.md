@@ -1,2 +1,2 @@
-# MBean (Management Bean) –
+# MBean (Managed Bean) –
 
