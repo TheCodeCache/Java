@@ -16,6 +16,8 @@ The JVM specification defines 5 types of MBean:
 
 ### For Example: 
 
+**Demonstration of a `Standard Bean` –**  
+
 ```java
 package com.thecodecache.mbeans;
 
