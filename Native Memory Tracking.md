@@ -264,6 +264,39 @@ GC (reserved=1095KB, committed=1059KB)
                             (mmap: reserved=1088KB, committed=1052KB)
 ```
 
+### 8. Symbol
+NMT report about the symbol allocations, such as the `string table` and `constant pool`:  
+```
+Symbol (reserved=1366KB, committed=1366KB)
+                            (malloc=911KB #99)
+                            (arena=456KB #1)
+```
+Almost 1 MB is allocated to symbols.
+
+### 9. NMT Over Time
+The NMT allows us to track how memory allocations change over time  
+First, we should mark the current state of our application as a baseline:  
+
+```java
+jcmd <pid> VM.native_memory baseline
+```
+Then, after a while, we can compare the current memory usage with that baseline:  
+```java
+jcmd <pid> VM.native_memory summary.diff
+```
+NMT, using + and – signs, would tell us how the memory usage changed over that period  
+```
+Total: reserved=1771487KB +3373KB, committed=491491KB +6873KB
+		Class (reserved=1084300KB +2103KB, committed=39356KB +2871KB)
+```
+The total reserved and committed memory increased by 3 MB and 6 MB, respectively.  
+Other fluctuations in memory allocations can be spotted as easily.  
+
+### 10. Detailed NMT
+NMT can provide very detailed information about a map of the entire memory space.  
+To enable this detailed report, we should use the `-XX:NativeMemoryTracking`=**detail** tuning flag.  
+
+
 **Reference:**  
 1. https://www.baeldung.com/native-memory-tracking-in-jvm
 
