@@ -107,6 +107,14 @@ rank   self  accum   count trace method
 CPU SAMPLES END
 ```
 
+**CPU Profiled output files–**  
+
+[java.hprof.txt](https://github.com/TheCodeCache/Java/files/8054160/java.hprof.txt)  
+
+[agentlib-hprof.txt](https://github.com/TheCodeCache/Java/files/8054159/agentlib-hprof.txt)  
+
+[Xrunhprof.txt](https://github.com/TheCodeCache/Java/files/8054161/Xrunhprof.txt)  
+
 
 **Reference:**  
 1. https://docs.oracle.com/javase/7/docs/technotes/samples/hprof.html
