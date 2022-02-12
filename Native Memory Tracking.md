@@ -295,7 +295,60 @@ Other fluctuations in memory allocations can be spotted as easily.
 ### 10. Detailed NMT
 NMT can provide very detailed information about a map of the entire memory space.  
 To enable this detailed report, we should use the `-XX:NativeMemoryTracking`=**detail** tuning flag.  
-
+```java
+Virtual memory map:
+ 
+[0x8f1c1000 - 0x8f467000] reserved 2712KB for Thread Stack
+                from [Thread::record_stack_base_and_size()+0xca]
+        [0x8f1c1000 - 0x8f467000] committed 2712KB from [Thread::record_stack_base_and_size()+0xca]
+ 
+[0x8f585000 - 0x8f729000] reserved 1680KB for Thread Stack
+                from [Thread::record_stack_base_and_size()+0xca]
+        [0x8f585000 - 0x8f729000] committed 1680KB from [Thread::record_stack_base_and_size()+0xca]
+ 
+[0x8f930000 - 0x90100000] reserved 8000KB for GC
+                from [ReservedSpace::initialize(unsigned int, unsigned int, bool, char*, unsigned int, bool)+0x555]
+        [0x8f930000 - 0x90100000] committed 8000KB from [PSVirtualSpace::expand_by(unsigned int)+0x95]
+ 
+[0x902dd000 - 0x9127d000] reserved 16000KB for GC
+                from [ReservedSpace::initialize(unsigned int, unsigned int, bool, char*, unsigned int, bool)+0x555]
+        [0x902dd000 - 0x9127d000] committed 16000KB from [os::pd_commit_memory(char*, unsigned int, unsigned int, bool)+0x36]
+ 
+[0x9127d000 - 0x91400000] reserved 1548KB for Thread Stack
+                from [Thread::record_stack_base_and_size()+0xca]
+        [0x9127d000 - 0x91400000] committed 1548KB from [Thread::record_stack_base_and_size()+0xca]
+ 
+[0x91400000 - 0xb0c00000] reserved 516096KB for Java Heap                                                                            <--- reserved memory range
+                from [ReservedSpace::initialize(unsigned int, unsigned int, bool, char*, unsigned int, bool)+0x190]                  <--- callsite that reserves the memory
+        [0x91400000 - 0x93400000] committed 32768KB from [VirtualSpace::initialize(ReservedSpace, unsigned int)+0x3e8]               <--- committed memory range and its callsite
+        [0xa6400000 - 0xb0c00000] committed 172032KB from [PSVirtualSpace::expand_by(unsigned int)+0x95]                             <--- committed memory range and its callsite
+ 
+[0xb0c61000 - 0xb0ce2000] reserved 516KB for Thread Stack
+                from [Thread::record_stack_base_and_size()+0xca]
+        [0xb0c61000 - 0xb0ce2000] committed 516KB from [Thread::record_stack_base_and_size()+0xca]
+ 
+[0xb0ce2000 - 0xb0e83000] reserved 1668KB for GC
+                from [ReservedSpace::initialize(unsigned int, unsigned int, bool, char*, unsigned int, bool)+0x555]
+        [0xb0ce2000 - 0xb0cf0000] committed 56KB from [PSVirtualSpace::expand_by(unsigned int)+0x95]
+        [0xb0d88000 - 0xb0d96000] committed 56KB from [CardTableModRefBS::resize_covered_region(MemRegion)+0xebf]
+        [0xb0e2e000 - 0xb0e83000] committed 340KB from [CardTableModRefBS::resize_covered_region(MemRegion)+0xebf]
+ 
+[0xb0e83000 - 0xb7003000] reserved 99840KB for Code
+                from [ReservedSpace::initialize(unsigned int, unsigned int, bool, char*, unsigned int, bool)+0x555]
+        [0xb0e83000 - 0xb0e92000] committed 60KB from [VirtualSpace::initialize(ReservedSpace, unsigned int)+0x3e8]
+        [0xb1003000 - 0xb139b000] committed 3680KB from [VirtualSpace::initialize(ReservedSpace, unsigned int)+0x37a]
+ 
+[0xb7003000 - 0xb7603000] reserved 6144KB for Class
+                from [ReservedSpace::initialize(unsigned int, unsigned int, bool, char*, unsigned int, bool)+0x555]
+        [0xb7003000 - 0xb73a4000] committed 3716KB from [VirtualSpace::initialize(ReservedSpace, unsigned int)+0x37a]
+ 
+[0xb7603000 - 0xb760b000] reserved 32KB for Internal
+                from [PerfMemory::create_memory_region(unsigned int)+0x8ba]
+ 
+[0xb770b000 - 0xb775c000] reserved 324KB for Thread Stack
+                from [Thread::record_stack_base_and_size()+0xca]
+        [0xb770b000 - 0xb775c000] committed 324KB from [Thread::record_stack_base_and_size()+0xca]
+```
 
 **Reference:**  
 1. https://www.baeldung.com/native-memory-tracking-in-jvm
