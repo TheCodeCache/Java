@@ -8,11 +8,11 @@ service-oriented networks, or any resource, that needs to be managed
 
 The JVM specification defines 5 types of MBean:  
 
-- **Standard** MBeans
-- **Dynamic** MBeans
-- **Open** MBeans
-- **Model** MBeans
-- **MXBeans**
+- **Standard** MBean
+- **Dynamic** MBean
+- **Open** MBean
+- **Model** MBean
+- **MXBean**
 
 
 Representation of a resource, and a resource could be java application, devices, etc.  
