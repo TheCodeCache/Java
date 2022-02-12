@@ -1,4 +1,4 @@
-# CPU Usage by Java Application – 
+# CPU Utilization by Java Application – 
 
 ### 1. Use `Java Mission Control`
 ```java
