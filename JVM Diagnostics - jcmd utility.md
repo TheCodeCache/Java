@@ -332,9 +332,8 @@ jcmd <process id/main class> Thread.print
 The jcmd utility provides the following troubleshooting options:  
 
 1. **Start a flight recording**–
-2. 
-**For example–** To start a 2-minute recording on the running Java process with the identifier 7060  
-and save it to myrecording.jfr in the current directory, use the following:  
+   **For example–** To start a 2-minute recording on the running Java process with the identifier 7060  
+   and save it to myrecording.jfr in the current directory, use the following:  
 ```
 jcmd 7060 JFR.start name=MyRecording settings=profile delay=20s duration=2m filename=C:\TEMP\myrecording.jfr
 ```
