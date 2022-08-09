@@ -20,3 +20,9 @@ Memory Management is all about `Garbage Collection` i.e. `GC` in java
 It is not a contiguous Heap Memory and hence can be grown dynamically which helps to overcome the size constraints.  
 This improves the garbage collection, auto-tuning, and de-allocation of metadata  
 
+![image](https://user-images.githubusercontent.com/26399543/183647457-af2fcc14-cc71-4e38-a726-f0086c3d4613.png)  
+
+
+Reference:  
+- https://stackoverflow.com/a/40899996/6842300  
+
